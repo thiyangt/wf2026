@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.9.37">
 
   <meta name="author" content="Thiyanga S. Talagala">
-  <title>Forecasting Dengue in Sri Lanka: A Journey Through Challenges, Actions, and Lessons Learned</title>
+  <title>Forecasting Dengue: Journey Through Challenges, Actions, and Lessons Learned</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -99,6 +99,7 @@
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-2740581606dc327e82f18f789b69d8a0.css">
+  <link rel="stylesheet" href="styles.css">
   <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -196,7 +197,7 @@
     <div class="slides">
 
 <section id="title-slide" data-background-color="#3f007d" data-background-image="none" class="quarto-title-block center">
-  <h1 class="title">Forecasting Dengue in Sri Lanka: A Journey Through Challenges, Actions, and Lessons Learned</h1>
+  <h1 class="title">Forecasting Dengue: Journey Through Challenges, Actions, and Lessons Learned</h1>
   <p class="subtitle">Women in Forecasting (WIF) Conference - 2026, Montreal, Canada</p>
 
 <div class="quarto-title-authors">
@@ -280,8 +281,8 @@ Thiyanga S. Talagala
 <h2>Dengue Cases in Sri Lanka: 2007 - 2026 March</h2>
 
 <img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"></section></section>
-<section id="historical-dengue-time-series-patterns-may-not-persist-due-to-changes-in-transmission-dynamics." class="title-slide slide level1 center">
-<h1>Historical dengue time series patterns may not persist due to changes in transmission dynamics.</h1>
+<section id="forecasting-models-rely-on-the-assumption-that-historical-data-pattern-continues-into-the-future." class="title-slide slide level1 center">
+<h1>Forecasting models rely on the assumption that historical data pattern continues into the future.</h1>
 
 </section>
 
@@ -387,7 +388,15 @@ Thiyanga S. Talagala
 
 </section>
 <h3 id="httpsthiyangt.github.iodenguedatahubweb">https://thiyangt.github.io/denguedatahubweb/</h3>
-<p><img data-src="cover.png"></p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="cover.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
 <p>We have data for 225 countries around the world!</p></section>
 <section id="section-12" class="title-slide slide level1 center" data-background-image="web1.png" data-background-size="contain" data-background-repeat="no-repeat" data-background-position="center">
 <h1></h1>
@@ -430,8 +439,8 @@ Thiyanga S. Talagala
 </section>
 
 <section>
-<section id="different-models-different-training-set-give-different-forecast-even-on-a-single-series" class="title-slide slide level1 center">
-<h1>Different models, different training set give different forecast even on a single series</h1>
+<section id="there-is-no-single-modeltraining-dataset-combination-that-works-well-all-the-time." class="title-slide slide level1 center">
+<h1>There is no single model–training dataset combination that works well all the time.</h1>
 
 </section>
 <section id="action-3-impact-of-training-dataset-and-model-choice-on-dengue-forecasting" class="slide level2">
@@ -468,7 +477,7 @@ Thiyanga S. Talagala
 <section id="section-19" class="title-slide slide level1 center">
 <h1></h1>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"></section>
 <section id="action-3-impact-of-training-dataset-and-model-choice-on-dengue-forecasting-4" class="slide level2">
 <h2>Action 3: Impact of training dataset and model choice on dengue forecasting</h2>
 <ol type="i">
@@ -517,28 +526,36 @@ Thiyanga S. Talagala
 <section id="section-22" class="title-slide slide level1 center">
 <h1></h1>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch"></section>
 
-<section id="time-series-features" class="title-slide slide level1 center">
-<h1>Time Series Features</h1>
-<p>The <strong>strength of the trend</strong> is defined as: <span class="math display">\[\begin{equation}
-F_T = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(T_t + R_t)} \right),
-\end{equation}\]</span> where <span class="math inline">\(\operatorname{Var}(R_t)\)</span> is the variance of the remainder component, and <span class="math inline">\(\operatorname{Var}(T_t + R_t)\)</span> is the variance of the detrended series.</p>
-<p>The <strong>strength of seasonality</strong> is defined as: <span class="math display">\[\begin{equation}
-F_S = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(S_t + R_t)} \right),
-\end{equation}\]</span> where <span class="math inline">\(\operatorname{Var}(R_t)\)</span> is the variance of the remainder component, and <span class="math inline">\(\operatorname{Var}(S_t + R_t)\)</span> is the variance after removing the seasonal component.</p>
-</section>
-
+<section>
 <section id="section-23" class="title-slide slide level1 center">
+<h1></h1>
+
+</section>
+<section id="time-series-features" class="slide level2">
+<h2>Time Series Features</h2>
+<p><strong>strength of the trend</strong></p>
+<p><span class="math display">\[\begin{equation}
+F_T = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(T_t + R_t)} \right),
+\end{equation}\]</span></p>
+<p><strong>strength of seasonality</strong> <span class="math display">\[\begin{equation}
+F_S = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(S_t + R_t)} \right),
+\end{equation}\]</span></p>
+<p><span class="math inline">\(\operatorname{Var}(R_t)\)</span> - variance of the remainder component</p>
+<p><span class="math inline">\(\operatorname{Var}(T_t + R_t)\)</span> - variance of the detrended series</p>
+<p><span class="math inline">\(\operatorname{Var}(S_t + R_t)\)</span> - variance after removing the seasonal component.</p>
+</section></section>
+<section id="section-24" class="title-slide slide level1 center">
 <h1></h1>
 
 <img data-src="index_files/figure-revealjs/featureplot-1.png" width="672" class="r-stretch quarto-figure-center"><p class="caption"> Feature-based exploration: The first column illustrates the strength of the trend across different periods, the second column depicts the strength of seasonality across periods, and the third column shows pairwise plots of the first three principal components.</p></section>
 
 <section>
-<section id="section-24" class="title-slide slide level1 center">
+<section id="section-25" class="title-slide slide level1 center">
 <h1></h1>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-16-1.png" width="960" class="r-stretch"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-17-1.png" width="960" class="r-stretch"></section>
 <section id="lessons-learned" class="slide level2">
 <h2>Lessons Learned</h2>
 <ul>
@@ -547,7 +564,7 @@ F_S = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(S_t 
 </ul>
 </section></section>
 <section>
-<section id="section-25" class="title-slide slide level1 center">
+<section id="section-26" class="title-slide slide level1 center">
 <h1></h1>
 
 </section>
@@ -591,7 +608,7 @@ g\left(
 \right)
 \]</span></p>
 </section></section>
-<section id="section-26" class="title-slide slide level1 center">
+<section id="section-27" class="title-slide slide level1 center">
 <h1></h1>
 <table>
 <colgroup>
@@ -662,7 +679,7 @@ Less favourable weather, reduced vector indices, and decreasing case counts over
 </section>
 
 <section>
-<section id="section-27" class="title-slide slide level1 center">
+<section id="section-28" class="title-slide slide level1 center">
 <h1></h1>
 
 </section>
@@ -674,15 +691,17 @@ Less favourable weather, reduced vector indices, and decreasing case counts over
 <li><p>Effective forecasting requires continuous monitoring, evaluation, and adaptation.</p></li>
 <li><p>Collaboration among epidemiologists, entomologists, clinicians, public health officials, and data scientists is essential.</p></li>
 </ul>
-</section></section>
-<section id="acknowledgement" class="title-slide slide level1 center">
-<h1>Acknowledgement</h1>
+</section>
+<section id="acknowledgement" class="slide level2">
+<h2>Acknowledgement</h2>
 <p>The Dengue Data Hub project was supported by funding from the R Consortium Infrastructure Steering Committee (ISC) Grant Program.</p>
-<p><strong>Slides:</strong></p>
+<p><strong>Dengue Data Hub:</strong> <a href="https://thiyangt.github.io/denguedatahubweb/">https://thiyangt.github.io/denguedatahubweb/</a></p>
+<p><strong>Slides:</strong> <a href="https://thiyangt.github.io/wf2026/">https://thiyangt.github.io/wf2026/</a></p>
 <p><strong>Email:</strong> ttalagala@sjp.ac.lk</p>
 
 
-</section>
+
+<img data-src="cover.png" width="960" class="r-stretch"></section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

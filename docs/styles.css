@@ -1,0 +1,9 @@
+/* Reduce ONLY title slide font size */
+.reveal .slides section.title-slide h1 {
+  font-size: 1em;   /* adjust as needed */
+}
+
+/* Optional: subtitle too */
+.reveal .slides section.title-slide h2 {
+  font-size: 1.1em;
+}

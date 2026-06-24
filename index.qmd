@@ -1,5 +1,5 @@
 ---
-title: "Forecasting Dengue in Sri Lanka: A Journey Through Challenges, Actions, and Lessons Learned"
+title: "Forecasting Dengue:  Journey Through Challenges, Actions, and Lessons Learned"
 format:
   revealjs: 
     theme: [default]
@@ -9,6 +9,7 @@ format:
     title-slide-attributes: 
       data-background-color: "#3f007d"
       data-background-image: none
+    css: styles.css
 author:
   - name: Thiyanga S. Talagala
     affiliations: Department of Statistics, University of Sri Jayewardenepura, Sri Lanka 
@@ -243,7 +244,7 @@ srilanka_weekly_data %>%
   ) + theme(legend.position = "none")
 ```
 
-# Historical dengue time series patterns may not persist due to changes in transmission dynamics.
+# Forecasting models rely on the assumption that historical data pattern continues into the future.  
 
 # 
 
@@ -285,7 +286,6 @@ srilanka_weekly_data %>%
 
 
 # Dengue is endemic in all districts across the country throughout the year.
-
 
 
 
@@ -388,7 +388,10 @@ srilanka_weekly_data
 
 ### https://thiyangt.github.io/denguedatahubweb/
 
-![](cover.png)
+```{r}
+#| fig.height: 4
+knitr::include_graphics("cover.png")
+```
 
 We have data for 225 countries around the world!
 
@@ -411,7 +414,7 @@ We have data for 225 countries around the world!
 # {background-image="a5.png" background-size="contain" background-repeat="no-repeat" background-position="center"}
 
 
-# Different models, different training set give different forecast even on a single series
+# There is no single model–training dataset combination that works well all the time.
 
 
 
@@ -702,20 +705,28 @@ p3 <- ggplot(combined_sf ) +
 p1 + (p2/p3)
 ```
 
-# Time Series Features
+#
 
-The **strength of the trend** is defined as:
+## Time Series Features
+
+**strength of the trend** 
+
 \begin{equation}
 F_T = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(T_t + R_t)} \right),
 \end{equation}
-where $\operatorname{Var}(R_t)$ is the variance of the remainder component, and $\operatorname{Var}(T_t + R_t)$ is the variance of the detrended series.
 
 
-The **strength of seasonality** is defined as:
+
+**strength of seasonality** 
 \begin{equation}
 F_S = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(S_t + R_t)} \right),
 \end{equation}
-where $\operatorname{Var}(R_t)$ is the variance of the remainder component, and $\operatorname{Var}(S_t + R_t)$ is the variance after removing the seasonal component.
+
+$\operatorname{Var}(R_t)$ - variance of the remainder component
+
+$\operatorname{Var}(T_t + R_t)$ - variance of the detrended series
+
+$\operatorname{Var}(S_t + R_t)$ - variance after removing the seasonal component.
 
 
 
@@ -1141,10 +1152,17 @@ $$
 
 - Collaboration among epidemiologists, entomologists, clinicians, public health officials, and data scientists is essential.
 
-# Acknowledgement
+## Acknowledgement
 
 The Dengue Data Hub project was supported by funding from the R Consortium Infrastructure Steering Committee (ISC) Grant Program.
 
-**Slides:** 
+**Dengue Data Hub:** [https://thiyangt.github.io/denguedatahubweb/](https://thiyangt.github.io/denguedatahubweb/)
+
+**Slides:** [https://thiyangt.github.io/wf2026/](https://thiyangt.github.io/wf2026/)
 
 **Email:** ttalagala@sjp.ac.lk
+
+```{r}
+#| fig.height: 4
+knitr::include_graphics("cover.png")
+```
