@@ -15,13 +15,34 @@ author:
 subtitle: "Women in Forecasting (WIF) Conference - 2026, Montreal, Canada"
 ---
 
+```{r}
+# Helper packages - need dplyr and ggplot
+library(denguedatahub)
+# library(kableExtra)
+data("srilanka_weekly_data")
+library(tsibble)
+library(feasts)
+library(tidyverse)
+library(here)
+library(kableExtra)
+library(knitr)
+library(lubridate)
+library(patchwork)
+# install.packages("devtools")
+#devtools::install_github("thiyangt/SriLanka")
+library(sf)
+library(SriLanka)
+```
+
+
+
 ## {background-image="map1.png" background-size="cover"}
 
 ## {background-image="map2.png" background-size="cover"}
 
 ## {background-image="map3.png" background-size="cover"}
 
-## Sri Lanka climate 
+## Sri Lanka Climate 
 
 🌴Climate type: 
 
@@ -335,8 +356,6 @@ their dengue time-series patterns can look quite different.
 
 # There is no centralized repository providing readily accessible, analysis-ready dengue data.
 
-# Actions
-
 # Action 1: Dengue Data Hub
 
 # {background-image="map8.png" background-size="contain" background-repeat="no-repeat" background-position="center"}
@@ -433,6 +452,44 @@ iii. Are the strengths of seasonality and the strengths of trend, computed over 
 
 iv. Do the strength of seasonality and the strength of trend, computed over different time periods, help explain the choice of the best model and training dataset?
 
+#
+
+```{r}
+
+colombo <- srilanka_weekly_data |>
+  group_by(year, week, start.date) |>
+  filter(year > 2017) |>
+  filter(district == "Colombo") |>
+  mutate(
+    yearweek = yearweek(start.date)) |>
+  distinct(yearweek, .keep_all = TRUE) |>
+  mutate(highlight = yearweek >= yearweek("2019 W47") & yearweek <= yearweek("2022 W52")) 
+
+country_weekly_tsibble <- colombo |>
+  as_tsibble(index = yearweek) |>
+  mutate(highlight = yearweek >= yearweek("2019 W47") & yearweek <= yearweek("2022 W52"))
+
+  ggplot(data = colombo) +
+  geom_line(
+            aes(x = yearweek, y = cases),
+            color = "black", linewidth = 0.8) +
+  geom_line(data = country_weekly_tsibble %>% filter(highlight),
+            aes(x = yearweek, y = cases),
+            color = "red", linewidth = 0.8) +
+  scale_x_yearweek(date_breaks = "1 year", date_labels = "%Y") +
+  labs(
+    x = "Year",
+    y = "Weekly Dengue Cases"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    plot.title = element_text(face = "bold")
+  )
+
+```
+
+
 
 
 ## Action 3:  Impact of training dataset and model choice on dengue forecasting
@@ -445,7 +502,7 @@ iii. Are the strengths of seasonality and the strengths of trend, computed over 
 
 iv. Do the strength of seasonality and the strength of trend, computed over different time periods, help explain the choice of the best model and training dataset?
 
-v. Do structural changes identified through segmented regression help explain the reasons for the best model and training dataset choice?
+
 
 #
 
@@ -485,5 +542,609 @@ iii. **STL - ETS approach:**  Using STL decomposition, the seasonal component is
 iii. **Dynamic Harmonic Regression (DHR):** Complex seasonality is modeled using Fourier terms combined with ARIMA errors.
 When the seasonal cycle is long (e.g., 52 weeks), DHR models usually perform better than ARIMA or ETS models. 
 
+#
+
+```{r data, echo=FALSE, message=FALSE, warning=FALSE}
+#ARIMA
+ARIMA_Benchmark_accuracy <- readRDS(here("results", "ARIMA_Benchmark_accuracy.rds"))
+ARIMA_downweight_accuracy <- readRDS(here("results", "ARIMA_downweight_accuracy.rds"))
+ARIMA_excludecovid_accuracy <- readRDS(here("results", "ARIMA_excludecovid_accuracy.rds"))
+ARIMA_updated_accuracy <- readRDS(here("results", "ARIMA_updated_accuracy.rds"))
+#ETS
+ETS_Benchmark_accuracy <- readRDS(here("results", "ETS_Benchmark_accuracy.rds"))
+ETS_downweight_accuracy <- readRDS(here("results", "ETS_downweight_accuracy.rds"))
+ETS_excludecovid_accuracy <- readRDS(here("results", "ETS_excludecovid_accuracy.rds"))
+ETS_updated_accuracy <- readRDS(here("results", "ETS_updated_accuracy.rds"))
+#dhr
+dhr_Benchmark_accuracy <- readRDS(here("results", "dhr_Benchmark_accuracy.rds"))
+dhr_downweight_accuracy <- readRDS(here("results", "dhr_downweight_accuracy.rds"))
+dhr_excludecovid_accuracy <- readRDS(here("results", "dhr_excludecovid_accuracy.rds"))
+dhr_updated_accuracy <- readRDS(here("results", "dhr_updated_accuracy.rds"))
+#TABTS
+TBATS_Benchmark_accuracy <- readRDS(here("results", "TBATS_Benchmark_accuracy.rds"))
+TBATS_Benchmark_accuracy$.model <- c("tbats")
+TBATS_downweight_accuracy <- readRDS(here("results", "TBATS_downweight_accuracy.rds"))
+TBATS_excludecovid_accuracy <- readRDS(here("results", "TBATS_excludecovid_accuracy.rds"))
+TBATS_updated_accuracy <- readRDS(here("results", "TBATS_updated_accuracy.rds"))
+```
+
+```{r, echo=FALSE}
+# processing data
+District <- rep(ARIMA_Benchmark_accuracy$district, times = 16)
+Data <- rep(c("Full", "Downweight", "Excluded", "Updated"), each=26, times =4)
+Model <- rep(c("ARIMA", "ETS", "DHR", "TBATS"), each=104)
+RMSE <- c(ARIMA_Benchmark_accuracy$RMSE,
+ARIMA_downweight_accuracy$RMSE,
+ARIMA_excludecovid_accuracy$RMSE,
+ARIMA_updated_accuracy$RMSE,
+ETS_Benchmark_accuracy$RMSE,
+ETS_downweight_accuracy$RMSE,
+ETS_excludecovid_accuracy$RMSE,
+ETS_updated_accuracy$RMSE,
+dhr_Benchmark_accuracy$RMSE,
+dhr_downweight_accuracy$RMSE,
+dhr_excludecovid_accuracy$RMSE,
+dhr_updated_accuracy$RMSE,
+TBATS_Benchmark_accuracy$RMSE,
+TBATS_downweight_accuracy$RMSE,
+TBATS_excludecovid_accuracy$RMSE,
+TBATS_updated_accuracy$RMSE)
+data <- tibble(District, Data, Model, RMSE)
+data_clean <- data |>
+  mutate(RMSE = ifelse(is.nan(RMSE), NA, RMSE))
+#table(data_clean$Model, data$Data)
+```
+
+```{r, echo=FALSE}
+df_best_flag <- data_clean %>%
+  group_by(District) %>%
+  mutate(
+    Best = if_else(RMSE == min(RMSE, na.rm = TRUE), "Yes", "No")
+  ) %>%
+  ungroup()
 
 
+```
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+# Step 0: Replace NaN with NA
+data_clean <- data %>%
+ mutate(RMSE = ifelse(is.nan(RMSE), NA, RMSE))
+
+# Step 1: Select best model per District–Data
+df_best_model <- data_clean %>%
+  group_by(District, Data) %>%
+  filter(RMSE == min(RMSE, na.rm = TRUE)) %>%
+  slice(1) %>%                # handle ties
+  ungroup()
+
+# Step 2: Add alpha column
+# Minimum RMSE across Data within each District → alpha = 1
+# Others → alpha = 0.5
+df_best_model <- df_best_model %>%
+  group_by(District) %>%
+  arrange(RMSE, .by_group = TRUE) %>%
+  mutate(
+    alpha_val = ifelse(row_number() == 1, 1, 0.4)
+  ) %>%
+  ungroup()
+
+# Step 3: Ensure all model levels are retained for color mapping
+df_best_model <- df_best_model %>%
+  mutate(Model = factor(Model, 
+                        levels = c("ARIMA", "ETS", "DHR", "TBATS"),
+                        labels = c("ARIMA", "STL-ETS", "DHR", "TBATS")))
+
+# Step 4: Plot
+p1 <- ggplot(df_best_model, aes(x = Data, y = District)) +
+  geom_tile(aes(fill = Model, alpha = alpha_val),
+            color = "white") +
+  geom_text(aes(label = ifelse(is.na(RMSE), "-", 
+                               sprintf("%.2f", RMSE))),
+            color = "black",
+            size = 2) +
+  scale_fill_manual(values = c(
+    "ARIMA" = "#1b9e77", 
+    "STL-ETS"   = "#d95f02", 
+    "DHR"   = "#7570b3", 
+    "TBATS" = "#e7298a"
+  )) +
+  scale_alpha_identity() +   # uses alpha values directly
+  theme_minimal(base_size = 12) +
+  labs(
+  #  title = "District-wise RMSE by Data",
+  #  subtitle = "Fully opaque tile = lowest RMSE within district",
+    title = "(a)",
+ #   fill = "Model",
+    x = "Training dataset"
+  ) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    panel.grid = element_blank(),
+    legend.position = "none"
+  )
+
+library(dplyr)
+
+df_min_rmse <- df_best_model %>%
+  group_by(District) %>%
+  slice_min(order_by = RMSE, n = 1, with_ties = FALSE) %>%
+  ungroup() 
+  
+
+#df_min_rmse
+
+lka_adm2 <- lka_adm2 |>
+  mutate(join_key = substr(NAME, 1, 5))
+df_min_rmse  <- df_min_rmse  |>
+  mutate(join_key = substr(District, 1, 5)) 
+# left join to preserve sf geometry from lka_adm2
+combined_sf <- lka_adm2 %>%
+  left_join(df_min_rmse , by = "join_key")
+p2 <- ggplot(combined_sf ) + 
+  geom_sf(aes(fill=Model)) + scale_fill_manual(values = c(
+    "ARIMA" = "#1b9e77", 
+    "STL-ETS"   = "#d95f02", 
+    "DHR"   = "#7570b3", 
+    "TBATS" = "#e7298a"
+  )) + labs(title = "(b)")
+p3 <- ggplot(combined_sf ) + 
+  geom_sf(aes(fill=Data)) + scale_fill_manual(values = c(
+    "Downweight" = "#7fc97f", 
+    "Full"   = "#beaed4", 
+    "Updated"   = "#fdc086", 
+    "Excluded" = "#1f78b4"
+  )) + labs(title = "(c)", fill = "Training dataset")
+p1 + (p2/p3)
+```
+
+# Time Series Features
+
+The **strength of the trend** is defined as:
+\begin{equation}
+F_T = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(T_t + R_t)} \right),
+\end{equation}
+where $\operatorname{Var}(R_t)$ is the variance of the remainder component, and $\operatorname{Var}(T_t + R_t)$ is the variance of the detrended series.
+
+
+The **strength of seasonality** is defined as:
+\begin{equation}
+F_S = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(S_t + R_t)} \right),
+\end{equation}
+where $\operatorname{Var}(R_t)$ is the variance of the remainder component, and $\operatorname{Var}(S_t + R_t)$ is the variance after removing the seasonal component.
+
+
+
+#
+
+```{r}
+library(dplyr)
+library(tsibble)
+
+data_segmented <- srilanka_weekly_data %>%
+  mutate(
+    yearweek = yearweek(start.date)) |>
+  mutate(
+    period = case_when(
+      year(yearweek) < 2020 ~ "Pre-COVID",
+      year(yearweek) >= 2020 & year(yearweek) < 2023 ~ "COVID",
+      year(yearweek) > 2022 ~ "Post-COVID"
+    )
+  )
+
+library(feasts)
+library(fabletools)
+
+data_tsibble <- data_segmented %>%
+  as_tsibble(key = c(district, period), index = yearweek) 
+
+stl_features <- data_tsibble %>%
+  features(cases, feat_stl)
+#stl_features
+
+df_combined_fea_best <- stl_features %>%
+  left_join(df_min_rmse, by = c("district" = "District"))
+```
+
+```{r featureplot, fig.height=9, fig.width=7, fig.cap="\\label{featureplot} Feature-based exploration: The first column illustrates the strength of the trend across different periods, the second column depicts the strength of seasonality across periods, and the third column shows pairwise plots of the first three principal components."}
+library(dplyr)
+library(tidyr)
+
+df_wide <- df_combined_fea_best %>%
+  pivot_wider(
+    names_from = period,
+    values_from = c(trend_strength, seasonal_strength_year)
+  )
+
+library(dplyr)
+
+# Trend variables
+trend_covid <- df_wide %>%
+  select(district, trend_strength_COVID, Data, Model) %>%
+  drop_na()
+
+trend_post <- df_wide %>%
+  select(district, `trend_strength_Post-COVID`, Data, Model) %>%
+  drop_na()
+
+trend_pre <- df_wide %>%
+  select(district, `trend_strength_Pre-COVID`, Data, Model) %>%
+  drop_na()
+
+# Seasonal variables
+season_covid <- df_wide %>%
+  select(district, seasonal_strength_year_COVID, Data, Model) %>%
+  drop_na()
+
+season_post <- df_wide %>%
+  select(district, `seasonal_strength_year_Post-COVID`, Data, Model) %>%
+  drop_na()
+
+season_pre <- df_wide %>%
+  select(district, `seasonal_strength_year_Pre-COVID`, Data, Model) %>%
+  drop_na()
+
+df_combined <- trend_covid %>%
+  inner_join(trend_post, by = "district") %>%
+  inner_join(trend_pre, by = "district") %>%
+  inner_join(season_covid, by = "district") %>%
+  inner_join(season_post, by = "district") %>%
+  inner_join(season_pre, by = "district")
+
+
+library(ggplot2)
+
+# --- Trend plots ---
+p1 <- ggplot(df_combined, aes(x = `trend_strength_Pre-COVID`, 
+                          y = trend_strength_COVID, colour = Model.x, shape = Data.x)) +
+  geom_point(
+  data = df_combined[df_combined$district == "Colombo", ],
+  size=3.5
+) + geom_point() +
+   geom_text(
+  data = df_combined[df_combined$district == "Colombo", ],
+  aes(label = district),
+  vjust = -1
+)  +
+  labs(title = "Trend",
+       subtitle = "(a)",
+       x = "Pre COVID-19",
+       y= "During COVID-19") + 
+   scale_color_manual(values = c(
+    "ARIMA" = "#1b9e77", 
+    "STL-ETS"   = "#d95f02", 
+    "DHR"   = "#7570b3", 
+    "TBATS" = "#e7298a"
+  ))+
+  geom_abline(intercept = 0, slope = 1, linetype="dashed") +
+#  scale_x_continuous(limits = c(0, 1), expand = c(0, 0)) +
+#  scale_y_continuous(limits = c(0, 1), expand = c(0, 0)) +
+  theme(legend.position = "none") 
+
+p2 <- ggplot(df_combined, aes(x = `trend_strength_Pre-COVID`, 
+                          y = `trend_strength_Post-COVID`, colour = Model.x, shape = Data.x)) +
+   geom_point(
+  data = df_combined[df_combined$district == "Colombo", ],
+  size=3.5
+) + geom_point() +
+   geom_text(
+  data = df_combined[df_combined$district == "Colombo", ],
+  aes(label = district),
+  vjust = -1
+) +
+geom_abline(intercept = 0, slope = 1, linetype="dashed") +
+  labs(title = "",
+       subtitle = "(b)",
+       x = "Pre COVID-19",
+       y= "Post COVID-19") + 
+   scale_color_manual(values = c(
+    "ARIMA" = "#1b9e77", 
+    "STL-ETS"   = "#d95f02", 
+    "DHR"   = "#7570b3", 
+    "TBATS" = "#e7298a"
+  ))+
+ # geom_abline(intercept = 0, slope = 1) +
+ # scale_x_continuous(limits = c(0, 1), expand = c(0, 0)) +
+#  scale_y_continuous(limits = c(0, 1), expand = c(0, 0)) +
+  theme(legend.position = "none") 
+
+
+p3 <- ggplot(df_combined, aes(x = trend_strength_COVID, 
+                          y = `trend_strength_Post-COVID`, colour = Model.x, shape = Data.x)) +
+   geom_point(
+  data = df_combined[df_combined$district == "Colombo", ],
+  size=3.5
+) + geom_point() +
+   geom_text(
+  data = df_combined[df_combined$district == "Colombo", ],
+  aes(label = district),
+  vjust = -1
+)+
+  geom_abline(intercept = 0, slope = 1, linetype="dashed") +
+  labs(title = "",
+       subtitle = "(c)",
+       x = "During COVID-19",
+       y= "Post COVID-19") + 
+   scale_color_manual(values = c(
+    "ARIMA" = "#1b9e77", 
+    "STL-ETS"   = "#d95f02", 
+    "DHR"   = "#7570b3", 
+    "TBATS" = "#e7298a"
+  ))+
+#  geom_abline(intercept = 0, slope = 1) +
+#  scale_x_continuous(limits = c(0, 1), expand = c(0, 0)) +
+#  scale_y_continuous(limits = c(0, 1), expand = c(0, 0)) +
+  theme(legend.position = "none") 
+
+
+# --- Seasonal plots ---
+p4 <- ggplot(df_combined, aes(x = `seasonal_strength_year_Pre-COVID`, 
+                          y = seasonal_strength_year_COVID, colour = Model.x, shape = Data.x)) +
+   geom_point(
+  data = df_combined[df_combined$district == "Colombo", ],
+  size=3.5
+) + geom_point() +
+   geom_text(
+  data = df_combined[df_combined$district == "Colombo", ],
+  aes(label = district),
+  vjust = -1
+)+
+  geom_abline(intercept = 0, slope = 1, linetype="dashed") +
+  labs(title = "Seasonality",
+       subtitle = "(d)",
+       x = "Pre COVID-19",
+       y= "During COVID-19") + 
+   scale_color_manual(values = c(
+    "ARIMA" = "#1b9e77", 
+    "STL-ETS"   = "#d95f02", 
+    "DHR"   = "#7570b3", 
+    "TBATS" = "#e7298a"
+  ))+
+#  geom_abline(intercept = 0, slope = 1) +
+#  scale_x_continuous(limits = c(0, 1), expand = c(0, 0)) +
+#  scale_y_continuous(limits = c(0, 1), expand = c(0, 0)) +
+  theme(legend.position = "none") 
+
+
+p5 <- ggplot(df_combined, aes(x = `seasonal_strength_year_Pre-COVID`, 
+                          y = `seasonal_strength_year_Post-COVID`, colour = Model.x, shape = Data.x)) +
+   geom_point(
+  data = df_combined[df_combined$district == "Colombo", ],
+  size=3.5
+) +
+  geom_point() +
+   geom_text(
+  data = df_combined[df_combined$district == "Colombo", ],
+  aes(label = district),
+  vjust = -1
+) +
+  geom_abline(intercept = 0, slope = 1, linetype="dashed") +
+  labs(title = "",
+       subtitle = "(e)",
+       x = "Pre COVID-19",
+       y= "Post COVID-19") + 
+   scale_color_manual(values = c(
+    "ARIMA" = "#1b9e77", 
+    "STL-ETS"   = "#d95f02", 
+    "DHR"   = "#7570b3", 
+    "TBATS" = "#e7298a"
+  ))+
+#  geom_abline(intercept = 0, slope = 1) +
+#  scale_x_continuous(limits = c(0, 1), expand = c(0, 0)) +
+#  scale_y_continuous(limits = c(0, 1), expand = c(0, 0)) +
+  theme(legend.position = "none") 
+
+
+p6 <- ggplot(df_combined, aes(x = seasonal_strength_year_COVID, 
+                          y = `seasonal_strength_year_Post-COVID`, colour = Model.x, shape = Data.x)) +
+   geom_point(
+  data = df_combined[df_combined$district == "Colombo", ],
+  size=3.5
+) + geom_point() +
+   geom_text(
+  data = df_combined[df_combined$district == "Colombo", ],
+  aes(label = district),
+  vjust = -1
+) +
+  geom_abline(intercept = 0, slope = 1, linetype="dashed") +
+  labs(title = "",
+       subtitle = "(f)",
+       x = "During COVID-19",
+       y= "Post COVID-19",
+       colour = "Forecast model",
+       shape = "Training dataset") + 
+   scale_color_manual(values = c(
+    "ARIMA" = "#1b9e77", 
+    "STL-ETS"   = "#d95f02", 
+    "DHR"   = "#7570b3", 
+    "TBATS" = "#e7298a"
+  ))+
+#  geom_abline(intercept = 0, slope = 1) +
+  #scale_x_continuous(limits = c(0, 1), expand = c(0, 0)) +
+ # scale_y_continuous(limits = c(0, 1), expand = c(0, 0)) +
+   guides(
+    colour = guide_legend(order = 1, nrow = 1),
+    shape  = guide_legend(order = 2, nrow = 1)
+  ) +
+  theme(
+    legend.position = "bottom",
+    legend.box = "vertical"  
+  )
+
+
+pcdf <- data.frame(tcovid = df_combined$trend_strength_COVID,
+tpostcovid = df_combined$`trend_strength_Post-COVID`,
+tprecovid = df_combined$`trend_strength_Pre-COVID`,
+scovid = df_combined$seasonal_strength_year_COVID,
+spostcovid = df_combined$`seasonal_strength_year_Post-COVID`,
+sprecovid = df_combined$`seasonal_strength_year_Pre-COVID`)
+
+pca_res <- prcomp(pcdf, scale. = TRUE)
+scores <- as.data.frame(pca_res$x)
+scores$Model <- df_combined$Model.x
+scores$Data <- df_combined$Data.x
+
+library(patchwork)
+p1p2 <- ggplot(scores, aes(x=PC1, y=PC2, color = Model, shape=Data)) + geom_point() + 
+ labs(title = "Principle Components",                                                                                          subtitle = "(g)",
+       x = "PC1",
+       y= "PC2") +
+   scale_color_manual(values = c(
+    "ARIMA" = "#1b9e77", 
+    "STL-ETS"   = "#d95f02", 
+    "DHR"   = "#7570b3", 
+    "TBATS" = "#e7298a"
+  ))+
+  theme(legend.position = "none")
+
+
+p1p3 <- ggplot(scores, aes(x=PC1, y=PC3, color = Model, shape=Data)) + geom_point()  + labs(x="PC1", y="PC3", subtitle = "(h)",) +
+   scale_color_manual(values = c(
+    "ARIMA" = "#1b9e77", 
+    "STL-ETS"   = "#d95f02", 
+    "DHR"   = "#7570b3", 
+    "TBATS" = "#e7298a"
+  ))+
+  theme(legend.position = "none")
+
+
+p2p3 <- ggplot(scores, aes(x=PC2, y=PC3, color = Model, shape=Data)) + geom_point() + labs(x="PC2", y="PC3", subtitle = "(i)") +
+   scale_color_manual(values = c(
+    "ARIMA" = "#1b9e77", 
+    "STL-ETS"   = "#d95f02", 
+    "DHR"   = "#7570b3", 
+    "TBATS" = "#e7298a"
+  ))+
+  theme(legend.position = "none")
+
+
+(p1 | p4 | p1p2) /
+(p2 | p5 | p1p3) /
+(p3 | p6| p2p3)
+```
+
+
+#
+
+```{r}
+p1|p4
+```
+
+## Lessons Learned
+
+ - There is no single best combination of training dataset and forecasting model that consistently yields the best performance for a given time series.
+
+ - This suggests that early warning systems should be adaptive rather than static, and **should incorporate mechanisms to detect and respond to structural changes in disease transmission dynamics**.
+ 
+#
+
+###  Integrated Forecasting = Data  + Doctors  + Citizens 
+
+```{r}
+#| fig.height: 5
+#| fig-align: center
+knitr::include_graphics("vd.png")
+```
+
+
+# A citizen reporting portal for submitting dengue case information
+
+# Kay Data Fields
+
+1. Location
+
+2. Patient demographics
+
+3. Symptoms
+
+4. Severity Assessment: Probably dengue, confirmed
+
+5. Household size, recent travel history
+
+
+
+
+## Action 4: Two-step forecasting model
+
+**Step 1: What does the data suggest will happen?**
+
+$$\hat{Y_t} = f(\text{climate},\text{time lags},\text{urbanization}, \text{mobility}, \text{interventions})$$
+
+**Step 2: Does reality suggest something the model cannot see yet?**
+
+$$
+\hat{Y_t}^* =
+g\left(
+\text{prediction from step 1},
+\substack{\text{clinical and epidemiological} \\
+          \text{domain knowledge}}
+\right)
+$$
+
+
+
+
+#
+
+<table>
+  <colgroup>
+    <col style="width: 18%;">
+    <col style="width: 82%;">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Epidemiological Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Stable</td>
+      <td>No significant change in weather, vector indices, or reported cases during the previous 2–3 weeks. Transmission expected to remain at current levels.</td>
+    </tr>
+    <tr>
+      <td>Moderate Increase</td>
+      <td>Slight increase in rainfall, humidity, or temperature favourable for mosquito breeding. Early signs of increasing cases in a few locations.</td>
+    </tr>
+    <tr>
+      <td>Sharp Increase</td>
+      <td>Sustained favourable weather conditions, increasing vector density, and multiple MOH areas reporting growth in cases.</td>
+    </tr>
+    <tr>
+      <td>Cluster Alert</td>
+      <td>One or more localized dengue clusters identified (e.g., schools, workplaces, neighborhoods), even if district-wide counts remain moderate.</td>
+    </tr>
+    <tr>
+      <td>Outbreak Alert</td>
+      <td>Widespread increase across several areas, healthcare burden increasing, or evidence of a new serotype/variant, large-scale clustering, or unusual transmission dynamics.</td>
+    </tr>
+    <tr>
+      <td>Declining Trend</td>
+      <td>Less favourable weather, reduced vector indices, and decreasing case counts over multiple weeks.</td>
+    </tr>
+  </tbody>
+</table>
+
+#
+
+## Lessons Learned
+
+-  Local epidemiological knowledge can identify risks before they appear in the surveillance data.
+
+- Human expertise and statistical models should complement, not replace, each other.
+
+- Effective forecasting requires continuous monitoring, evaluation, and adaptation.
+
+- Collaboration among epidemiologists, entomologists, clinicians, public health officials, and data scientists is essential.
+
+# Acknowledgement
+
+The Dengue Data Hub project was supported by funding from the R Consortium Infrastructure Steering Committee (ISC) Grant Program.
+
+**Slides:** 
+
+**Email:** ttalagala@sjp.ac.lk
