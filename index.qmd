@@ -46,7 +46,6 @@ subtitle: "Women in Forecasting (WIF) Conference - 2026, Montreal, Canada"
  
 # {background-image="map4.jpg" background-size="contain"} 
 
-# Challenges
 
 
 
@@ -337,3 +336,154 @@ their dengue time-series patterns can look quite different.
 # There is no centralized repository providing readily accessible, analysis-ready dengue data.
 
 # Actions
+
+# Action 1: Dengue Data Hub
+
+# {background-image="map8.png" background-size="contain" background-repeat="no-repeat" background-position="center"}
+
+## `denguedatahub` R package
+
+
+:::: {.columns}
+
+::: {.column width="60%"}
+
+```{r}
+#| echo: true
+#pak::pak("thiyangt/denguedatahub")
+#install.packages("denguedatahub")
+library(denguedatahub)
+srilanka_weekly_data
+```
+
+:::
+
+::: {.column width="40%"}
+
+![](logo.png)
+
+:::
+::::
+
+#
+
+### https://thiyangt.github.io/denguedatahubweb/
+
+![](cover.png)
+
+We have data for 225 countries around the world!
+
+# {background-image="web1.png" background-size="contain" background-repeat="no-repeat" background-position="center"}
+
+# {background-image="web.png" background-size="contain" background-repeat="no-repeat" background-position="center"}
+
+# Action 2: Dengue Atlas
+
+[https://github.com/thiyangt/DengueAtlas](https://github.com/thiyangt/DengueAtlas)
+
+# {background-image="a1.png" background-size="contain" background-repeat="no-repeat" background-position="center"}
+
+# {background-image="a2.png" background-size="contain" background-repeat="no-repeat" background-position="center"}
+
+# {background-image="a3.png" background-size="contain" background-repeat="no-repeat" background-position="center"}
+
+# {background-image="a4.png" background-size="contain" background-repeat="no-repeat" background-position="center"}
+
+# {background-image="a5.png" background-size="contain" background-repeat="no-repeat" background-position="center"}
+
+
+# Different models, different training set give different forecast even on a single series
+
+
+
+
+## Action 3:  Impact of training dataset and model choice on dengue forecasting
+
+i. How do different training dataset choices and different model choices influence forecast error?
+
+
+
+## Action 3:  Impact of training dataset and model choice on dengue forecasting
+
+i. How do different training dataset choices and different model choices influence forecast error?
+
+ii. Do training dataset and model choices exhibit spatial patterns across districts?
+
+
+
+
+
+## Action 3:  Impact of training dataset and model choice on dengue forecasting
+
+i. How do different training dataset choices and different model choices influence forecast error?
+
+ii. Do training dataset and model choices exhibit spatial patterns across districts?
+
+iii. Are the strengths of seasonality and the strengths of trend, computed over different time periods, helpful in identifying the best-performing combination of training dataset and model?
+
+
+
+## Action 3:  Impact of training dataset and model choice on dengue forecasting
+
+i. How do different training dataset choices and different model choices influence forecast error?
+
+ii. Do training dataset and model choices exhibit spatial patterns across districts?
+
+iii. Are the strengths of seasonality and the strengths of trend, computed over different time periods, helpful in identifying the best-performing combination of training dataset and model?
+
+iv. Do the strength of seasonality and the strength of trend, computed over different time periods, help explain the choice of the best model and training dataset?
+
+
+
+## Action 3:  Impact of training dataset and model choice on dengue forecasting
+
+i. How do different training dataset choices and different model choices influence forecast error?
+
+ii. Do training dataset and model choices exhibit spatial patterns across districts?
+
+iii. Are the strengths of seasonality and the strengths of trend, computed over different time periods, helpful in identifying the best-performing combination of training dataset and model?
+
+iv. Do the strength of seasonality and the strength of trend, computed over different time periods, help explain the choice of the best model and training dataset?
+
+v. Do structural changes identified through segmented regression help explain the reasons for the best model and training dataset choice?
+
+#
+
+### Training set
+
+i. Pre COVID-19 period: 2007 - 2020
+
+ii. During COVID-19 period: from 2020 to 2022 
+
+iii. Post COVID-19 period: 2023 - 2024 
+
+### Test set
+
+The first 8 weeks of 2025
+
+#
+
+## Training dataset choices
+
+- All data
+
+- Excluding the interrupted period and pre-COVID-19 period from model training and use only post COVID-19 period data
+
+- Forecasting the interrupted period first and then using it for modeling:
+
+- Down-weighting interrupted period
+
+## Model choices
+
+i. **Automated ARIMA algorithms**
+
+ii. **Trigonometric seasonality, Box-Cox transformation, ARMA errors, Trend and Seasonal components (TBATS) model** 
+
+iii. **STL - ETS approach:**  Using STL decomposition, the seasonal component is extracted from the original series. Then, the ETS model is fitted to the seasonally adjusted series. When fitting the ETS model, the seasonal component is set to "None". In this way, STL captures seasonality, ETS models the remaining structure, and the final forecast is their combination.   
+
+
+iii. **Dynamic Harmonic Regression (DHR):** Complex seasonality is modeled using Fourier terms combined with ARIMA errors.
+When the seasonal cycle is long (e.g., 52 weeks), DHR models usually perform better than ARIMA or ETS models. 
+
+
+

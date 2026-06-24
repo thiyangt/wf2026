@@ -31,6 +31,72 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-2740581606dc327e82f18f789b69d8a0.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -179,11 +245,6 @@ Thiyanga S. Talagala
 
 </section>
 
-<section id="challenges" class="title-slide slide level1 center">
-<h1>Challenges</h1>
-
-</section>
-
 <section id="section-4" class="title-slide slide level1 center" data-background-image="map5.png" data-background-size="contain" data-background-repeat="no-repeat" data-background-position="center">
 <h1></h1>
 
@@ -284,6 +345,177 @@ Thiyanga S. Talagala
 <h1>Actions</h1>
 
 </section>
+
+<section id="action-1-dengue-data-hub" class="title-slide slide level1 center">
+<h1>Action 1: Dengue Data Hub</h1>
+
+</section>
+
+<section>
+<section id="section-10" class="title-slide slide level1 center" data-background-image="map8.png" data-background-size="contain" data-background-repeat="no-repeat" data-background-position="center">
+<h1></h1>
+
+</section>
+<section id="denguedatahub-r-package" class="slide level2">
+<h2><code>denguedatahub</code> R package</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="co">#pak::pak("thiyangt/denguedatahub")</span></span>
+<span id="cb1-2"><a href=""></a><span class="co">#install.packages("denguedatahub")</span></span>
+<span id="cb1-3"><a href=""></a><span class="fu">library</span>(denguedatahub)</span>
+<span id="cb1-4"><a href=""></a>srilanka_weekly_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 26,311 × 6
+    year  week start.date end.date   district    cases
+   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;       &lt;dbl&gt;
+ 1  2006    52 12/23/2006 12/29/2006 Colombo        71
+ 2  2006    52 12/23/2006 12/29/2006 Gampaha        12
+ 3  2006    52 12/23/2006 12/29/2006 Kalutara       12
+ 4  2006    52 12/23/2006 12/29/2006 Kandy          20
+ 5  2006    52 12/23/2006 12/29/2006 Matale          4
+ 6  2006    52 12/23/2006 12/29/2006 NuwaraEliya     1
+ 7  2006    52 12/23/2006 12/29/2006 Galle           1
+ 8  2006    52 12/23/2006 12/29/2006 Hambanthota     1
+ 9  2006    52 12/23/2006 12/29/2006 Matara         11
+10  2006    52 12/23/2006 12/29/2006 Jaffna          0
+# ℹ 26,301 more rows</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<p><img data-src="logo.png"></p>
+</div></div>
+</section></section>
+<section>
+<section id="section-11" class="title-slide slide level1 center">
+<h1></h1>
+
+</section>
+<h3 id="httpsthiyangt.github.iodenguedatahubweb">https://thiyangt.github.io/denguedatahubweb/</h3>
+<p><img data-src="cover.png"></p>
+<p>We have data for 225 countries around the world!</p></section>
+<section id="section-12" class="title-slide slide level1 center" data-background-image="web1.png" data-background-size="contain" data-background-repeat="no-repeat" data-background-position="center">
+<h1></h1>
+
+</section>
+
+<section id="section-13" class="title-slide slide level1 center" data-background-image="web.png" data-background-size="contain" data-background-repeat="no-repeat" data-background-position="center">
+<h1></h1>
+
+</section>
+
+<section id="action-2-dengue-atlas" class="title-slide slide level1 center">
+<h1>Action 2: Dengue Atlas</h1>
+<p><a href="https://github.com/thiyangt/DengueAtlas">https://github.com/thiyangt/DengueAtlas</a></p>
+</section>
+
+<section id="section-14" class="title-slide slide level1 center" data-background-image="a1.png" data-background-size="contain" data-background-repeat="no-repeat" data-background-position="center">
+<h1></h1>
+
+</section>
+
+<section id="section-15" class="title-slide slide level1 center" data-background-image="a2.png" data-background-size="contain" data-background-repeat="no-repeat" data-background-position="center">
+<h1></h1>
+
+</section>
+
+<section id="section-16" class="title-slide slide level1 center" data-background-image="a3.png" data-background-size="contain" data-background-repeat="no-repeat" data-background-position="center">
+<h1></h1>
+
+</section>
+
+<section id="section-17" class="title-slide slide level1 center" data-background-image="a4.png" data-background-size="contain" data-background-repeat="no-repeat" data-background-position="center">
+<h1></h1>
+
+</section>
+
+<section id="section-18" class="title-slide slide level1 center" data-background-image="a5.png" data-background-size="contain" data-background-repeat="no-repeat" data-background-position="center">
+<h1></h1>
+
+</section>
+
+<section>
+<section id="different-models-different-training-set-give-different-forecast-even-on-a-single-series" class="title-slide slide level1 center">
+<h1>Different models, different training set give different forecast even on a single series</h1>
+
+</section>
+<section id="action-3-impact-of-training-dataset-and-model-choice-on-dengue-forecasting" class="slide level2">
+<h2>Action 3: Impact of training dataset and model choice on dengue forecasting</h2>
+<ol type="i">
+<li>How do different training dataset choices and different model choices influence forecast error?</li>
+</ol>
+</section>
+<section id="action-3-impact-of-training-dataset-and-model-choice-on-dengue-forecasting-1" class="slide level2">
+<h2>Action 3: Impact of training dataset and model choice on dengue forecasting</h2>
+<ol type="i">
+<li><p>How do different training dataset choices and different model choices influence forecast error?</p></li>
+<li><p>Do training dataset and model choices exhibit spatial patterns across districts?</p></li>
+</ol>
+</section>
+<section id="action-3-impact-of-training-dataset-and-model-choice-on-dengue-forecasting-2" class="slide level2">
+<h2>Action 3: Impact of training dataset and model choice on dengue forecasting</h2>
+<ol type="i">
+<li><p>How do different training dataset choices and different model choices influence forecast error?</p></li>
+<li><p>Do training dataset and model choices exhibit spatial patterns across districts?</p></li>
+<li><p>Are the strengths of seasonality and the strengths of trend, computed over different time periods, helpful in identifying the best-performing combination of training dataset and model?</p></li>
+</ol>
+</section>
+<section id="action-3-impact-of-training-dataset-and-model-choice-on-dengue-forecasting-3" class="slide level2">
+<h2>Action 3: Impact of training dataset and model choice on dengue forecasting</h2>
+<ol type="i">
+<li><p>How do different training dataset choices and different model choices influence forecast error?</p></li>
+<li><p>Do training dataset and model choices exhibit spatial patterns across districts?</p></li>
+<li><p>Are the strengths of seasonality and the strengths of trend, computed over different time periods, helpful in identifying the best-performing combination of training dataset and model?</p></li>
+<li><p>Do the strength of seasonality and the strength of trend, computed over different time periods, help explain the choice of the best model and training dataset?</p></li>
+</ol>
+</section>
+<section id="action-3-impact-of-training-dataset-and-model-choice-on-dengue-forecasting-4" class="slide level2">
+<h2>Action 3: Impact of training dataset and model choice on dengue forecasting</h2>
+<ol type="i">
+<li><p>How do different training dataset choices and different model choices influence forecast error?</p></li>
+<li><p>Do training dataset and model choices exhibit spatial patterns across districts?</p></li>
+<li><p>Are the strengths of seasonality and the strengths of trend, computed over different time periods, helpful in identifying the best-performing combination of training dataset and model?</p></li>
+<li><p>Do the strength of seasonality and the strength of trend, computed over different time periods, help explain the choice of the best model and training dataset?</p></li>
+<li><p>Do structural changes identified through segmented regression help explain the reasons for the best model and training dataset choice?</p></li>
+</ol>
+</section></section>
+<section>
+<section id="section-19" class="title-slide slide level1 center">
+<h1></h1>
+
+</section>
+<h3 id="training-set">Training set</h3>
+<ol type="i">
+<li><p>Pre COVID-19 period: 2007 - 2020</p></li>
+<li><p>During COVID-19 period: from 2020 to 2022</p></li>
+<li><p>Post COVID-19 period: 2023 - 2024</p></li>
+</ol>
+<h3 id="test-set">Test set</h3>
+<p>The first 8 weeks of 2025</p></section>
+<section>
+<section id="section-20" class="title-slide slide level1 center">
+<h1></h1>
+
+</section>
+<section id="training-dataset-choices" class="slide level2">
+<h2>Training dataset choices</h2>
+<ul>
+<li><p>All data</p></li>
+<li><p>Excluding the interrupted period and pre-COVID-19 period from model training and use only post COVID-19 period data</p></li>
+<li><p>Forecasting the interrupted period first and then using it for modeling:</p></li>
+<li><p>Down-weighting interrupted period</p></li>
+</ul>
+</section>
+<section id="model-choices" class="slide level2">
+<h2>Model choices</h2>
+<ol type="i">
+<li><p><strong>Automated ARIMA algorithms</strong></p></li>
+<li><p><strong>Trigonometric seasonality, Box-Cox transformation, ARMA errors, Trend and Seasonal components (TBATS) model</strong></p></li>
+<li><p><strong>STL - ETS approach:</strong> Using STL decomposition, the seasonal component is extracted from the original series. Then, the ETS model is fitted to the seasonally adjusted series. When fitting the ETS model, the seasonal component is set to “None”. In this way, STL captures seasonality, ETS models the remaining structure, and the final forecast is their combination.</p></li>
+<li><p><strong>Dynamic Harmonic Regression (DHR):</strong> Complex seasonality is modeled using Fourier terms combined with ARIMA errors. When the seasonal cycle is long (e.g., 52 weeks), DHR models usually perform better than ARIMA or ETS models.</p></li>
+</ol>
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
