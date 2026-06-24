@@ -1,0 +1,339 @@
+---
+title: "Forecasting Dengue in Sri Lanka: A Journey Through Challenges, Actions, and Lessons Learned"
+format:
+  revealjs: 
+    theme: [default]
+    width: 1280
+    height: 720
+    slide-number: true
+    title-slide-attributes: 
+      data-background-color: "#3f007d"
+      data-background-image: none
+author:
+  - name: Thiyanga S. Talagala
+    affiliations: Department of Statistics, University of Sri Jayewardenepura, Sri Lanka 
+subtitle: "Women in Forecasting (WIF) Conference - 2026, Montreal, Canada"
+---
+
+## {background-image="map1.png" background-size="cover"}
+
+## {background-image="map2.png" background-size="cover"}
+
+## {background-image="map3.png" background-size="cover"}
+
+## Sri Lanka climate 
+
+🌴Climate type: 
+
+- Tropical climate: Warm and humid throughout the year
+
+ ☀️Average temperature:
+ 
+  - Typically 26°C – 30°C in lowlands
+    
+  - Cooler in central highlands (e.g., Nuwara Eliya ~16°C–20°C)
+
+ 🌧💧️ Rainfall:
+
+
+  - Two main monsoon seasons: 
+  
+    - Southwest monsoon (May–September)
+    
+    - Northeast monsoon (December–February)
+    
+    
+ 
+# {background-image="map4.jpg" background-size="contain"} 
+
+# Challenges
+
+
+
+
+# {background-image="map5.png" background-size="contain" background-repeat="no-repeat" background-position="center"}
+
+
+#  {background-image="map6.png" background-size="contain" background-repeat="no-repeat" background-position="center"}
+
+# What makes dengue forecasting a challenging problem?
+
+
+
+## Weekly Dengue Cases in Sri Lanka: 2007 - 2016
+
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+library(denguedatahub)
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+
+srilanka_weekly_data %>%
+  mutate(
+    start.date = mdy(start.date),
+    year = year(start.date)
+  ) %>%
+  group_by(start.date, year) %>%
+  summarise(island_cases = sum(cases, na.rm = TRUE), .groups = "drop") %>%
+  mutate(period = ifelse(year <= 2016, "≤ 2017", "> 2017")) %>%
+  ggplot(aes(x = start.date, y = island_cases, color = period)) +
+  geom_line() +
+  scale_color_manual(values = c("≤ 2017" = "black", "> 2017" = "white")) +
+  #theme_bw() +
+  labs(
+   # title = "Weekly Dengue Cases in Sri Lanka (Island Total)",
+    x = "Year",
+    y = "Cases",
+    color = "Period"
+  ) + theme(legend.position = "none")
+```
+
+
+## Weekly Dengue Cases in Sri Lanka: 2007 - 2018
+
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+library(denguedatahub)
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+
+srilanka_weekly_data %>%
+  mutate(
+    start.date = mdy(start.date),
+    year = year(start.date)
+  ) %>%
+  group_by(start.date, year) %>%
+  summarise(island_cases = sum(cases, na.rm = TRUE), .groups = "drop") %>%
+  mutate(period = ifelse(year <= 2018, "≤ 2017", "> 2017")) %>%
+  ggplot(aes(x = start.date, y = island_cases, color = period)) +
+  geom_line() +
+  scale_color_manual(values = c("≤ 2017" = "black", "> 2017" = "white")) +
+  #theme_bw() +
+  labs(
+   # title = "Weekly Dengue Cases in Sri Lanka (Island Total)",
+    x = "Year",
+    y = "Cases",
+    color = "Period"
+  ) + theme(legend.position = "none")
+```
+
+## Weekly Dengue Cases in Sri Lanka: 2007 - 2019
+
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+library(denguedatahub)
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+
+srilanka_weekly_data %>%
+  mutate(
+    start.date = mdy(start.date),
+    year = year(start.date)
+  ) %>%
+  group_by(start.date, year) %>%
+  summarise(island_cases = sum(cases, na.rm = TRUE), .groups = "drop") %>%
+  mutate(period = ifelse(year <= 2020, "≤ 2017", "> 2017")) %>%
+  ggplot(aes(x = start.date, y = island_cases, color = period)) +
+  geom_line() +
+  scale_color_manual(values = c("≤ 2017" = "black", "> 2017" = "white")) +
+  #theme_bw() +
+  labs(
+   # title = "Weekly Dengue Cases in Sri Lanka (Island Total)",
+    x = "Year",
+    y = "Cases",
+    color = "Period"
+  ) + theme(legend.position = "none")
+```
+
+## Weekly Dengue Cases in Sri Lanka: 2007 - 2022
+
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+library(denguedatahub)
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+
+srilanka_weekly_data %>%
+  mutate(
+    start.date = mdy(start.date),
+    year = year(start.date)
+  ) %>%
+  group_by(start.date, year) %>%
+  summarise(island_cases = sum(cases, na.rm = TRUE), .groups = "drop") %>%
+  mutate(period = ifelse(year <= 2022, "≤ 2017", "> 2017")) %>%
+  ggplot(aes(x = start.date, y = island_cases, color = period)) +
+  geom_line() +
+  scale_color_manual(values = c("≤ 2017" = "black", "> 2017" = "white")) +
+  #theme_bw() +
+  labs(
+   # title = "Weekly Dengue Cases in Sri Lanka (Island Total)",
+    x = "Year",
+    y = "Cases",
+    color = "Period"
+  ) + theme(legend.position = "none")
+```
+
+
+
+## Dengue Cases in Sri Lanka: 2007 - 2026 March
+
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+library(denguedatahub)
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+
+srilanka_weekly_data %>%
+  mutate(
+    start.date = mdy(start.date),
+    year = year(start.date)
+  ) %>%
+  group_by(start.date, year) %>%
+  summarise(island_cases = sum(cases, na.rm = TRUE), .groups = "drop") %>%
+  mutate(period = ifelse(year <= 2027, "≤ 2017", "> 2017")) %>%
+  ggplot(aes(x = start.date, y = island_cases, color = period)) +
+  geom_line() +
+  scale_color_manual(values = c("≤ 2017" = "black", "> 2017" = "white")) +
+  #theme_bw() +
+  labs(
+   # title = "Weekly Dengue Cases in Sri Lanka (Island Total)",
+    x = "Year",
+    y = "Cases",
+    color = "Period"
+  ) + theme(legend.position = "none")
+```
+
+# Historical dengue time series patterns may not persist due to changes in transmission dynamics.
+
+# 
+
+### Weekly Dengue Cases by District (2020 onwards)
+
+```{r}
+#| fig.width: 15
+#| fig.height: 8
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+library(viridis)
+library(scales)
+
+srilanka_weekly_data %>%
+  mutate(start.date = mdy(start.date)) %>%
+  filter(start.date >= as.Date("2020-01-01")) %>%
+  group_by(district, start.date) %>%
+  summarise(cases = sum(cases, na.rm = TRUE), .groups = "drop") %>%
+  ggplot(aes(x = start.date, y = district, fill = cases)) +
+  geom_tile() +
+  scale_fill_viridis_c(
+    option = "C",
+    limits = c(1, NA),
+    breaks = c(1, 10, 50, 100, 200),   # marks on scale
+    oob = scales::squish
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid = element_blank(),
+    axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)
+  ) +
+  labs(
+    x = "Time",
+    y = "District",
+    fill = "Cases"
+  )
+```
+
+
+# Dengue is endemic in all districts across the country throughout the year.
+
+
+
+
+#
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+
+srilanka_weekly_data %>%
+  mutate(start.date = mdy(start.date)) %>%
+  filter(district %in% c("Colombo", "Gampaha", "Kalutara")) %>%
+  arrange(start.date) %>%
+  ggplot(aes(x = start.date, y = cases)) +
+  geom_line(color = "steelblue", linewidth = 0.6) +
+  facet_grid(rows = vars(district), scales = "free_y") +
+  labs(
+    title = "Weekly Dengue Cases: Colombo, Gampaha, Kalutara",
+    x = "Week",
+    y = "Number of Cases"
+  ) +
+ # theme_minimal() +
+  theme(
+    strip.text = element_text(face = "bold"),
+    panel.grid.minor = element_blank()
+  )
+```
+
+#
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+```{r}
+#| fig.width: 5
+#| fig.height: 7
+library(sf)
+library(dplyr)
+library(ggplot2)
+library(SriLanka)
+
+data("lka_adm2")
+
+west_districts <- lka_adm2 %>%
+  filter(NAME %in% c("Colombo District",
+                     "Gampaha District",
+                     "Kalutara District"))
+
+ggplot() +
+  geom_sf(data = lka_adm2, color = "black", linewidth = 0.2) +
+  geom_sf(data = west_districts, fill = "steelblue", color = "black", linewidth = 0.4)
+```
+:::
+
+::: {.column width="50%"}
+
+- Even though Colombo, Gampaha, and Kalutara are geographically close in the Western Province,
+their dengue time-series patterns can look quite different.
+
+- Spatial proximity does not imply temporal similarity in dengue dynamics.
+:::
+::::
+
+
+# {background-image="map7.png" background-size="contain" background-repeat="no-repeat" background-position="center"}
+
+# There is no centralized repository providing readily accessible, analysis-ready dengue data.
+
+# Actions
