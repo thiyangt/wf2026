@@ -337,8 +337,8 @@ Thiyanga S. Talagala
 
 </section>
 
-<section id="there-is-no-centralized-repository-providing-readily-accessible-analysis-ready-dengue-data." class="title-slide slide level1 center">
-<h1>There is no centralized repository providing readily accessible, analysis-ready dengue data.</h1>
+<section id="there-is-no-centralized-repository-for-accessing-tidy-dengue-data." class="title-slide slide level1 center">
+<h1>There is no centralized repository for accessing tidy dengue data.</h1>
 
 </section>
 
@@ -473,20 +473,11 @@ Thiyanga S. Talagala
 <li><p>Do the strength of seasonality and the strength of trend, computed over different time periods, help explain the choice of the best model and training dataset?</p></li>
 </ol>
 </section></section>
-<section>
 <section id="section-19" class="title-slide slide level1 center">
 <h1></h1>
 
 <img data-src="index_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"></section>
-<section id="action-3-impact-of-training-dataset-and-model-choice-on-dengue-forecasting-4" class="slide level2">
-<h2>Action 3: Impact of training dataset and model choice on dengue forecasting</h2>
-<ol type="i">
-<li><p>How do different training dataset choices and different model choices influence forecast error?</p></li>
-<li><p>Do training dataset and model choices exhibit spatial patterns across districts?</p></li>
-<li><p>Are the strengths of seasonality and the strengths of trend, computed over different time periods, helpful in identifying the best-performing combination of training dataset and model?</p></li>
-<li><p>Do the strength of seasonality and the strength of trend, computed over different time periods, help explain the choice of the best model and training dataset?</p></li>
-</ol>
-</section></section>
+
 <section>
 <section id="section-20" class="title-slide slide level1 center">
 <h1></h1>
@@ -506,16 +497,16 @@ Thiyanga S. Talagala
 
 </section>
 <section id="training-dataset-choices" class="slide level2">
-<h2>Training dataset choices</h2>
+<h2>Training Dataset Choices</h2>
 <ul>
 <li><p>All data</p></li>
-<li><p>Excluding the interrupted period and pre-COVID-19 period from model training and use only post COVID-19 period data</p></li>
-<li><p>Forecasting the interrupted period first and then using it for modeling:</p></li>
-<li><p>Down-weighting interrupted period</p></li>
+<li><p>Use only post COVID-19 period data</p></li>
+<li><p>Forecasting the interrupted period first and then using it for modeling</p></li>
+<li><p>Down-weight the interrupted period</p></li>
 </ul>
 </section>
 <section id="model-choices" class="slide level2">
-<h2>Model choices</h2>
+<h2>Model Choices</h2>
 <ol type="i">
 <li><p><strong>Automated ARIMA algorithms</strong></p></li>
 <li><p><strong>Trigonometric seasonality, Box-Cox transformation, ARMA errors, Trend and Seasonal components (TBATS) model</strong></p></li>
@@ -537,10 +528,10 @@ Thiyanga S. Talagala
 <h2>Time Series Features</h2>
 <p><strong>strength of the trend</strong></p>
 <p><span class="math display">\[\begin{equation}
-F_T = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(T_t + R_t)} \right),
+F_T = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(T_t + R_t)} \right)
 \end{equation}\]</span></p>
 <p><strong>strength of seasonality</strong> <span class="math display">\[\begin{equation}
-F_S = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(S_t + R_t)} \right),
+F_S = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(S_t + R_t)} \right)
 \end{equation}\]</span></p>
 <p><span class="math inline">\(\operatorname{Var}(R_t)\)</span> - variance of the remainder component</p>
 <p><span class="math inline">\(\operatorname{Var}(T_t + R_t)\)</span> - variance of the detrended series</p>

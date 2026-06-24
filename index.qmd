@@ -354,7 +354,7 @@ their dengue time-series patterns can look quite different.
 
 # {background-image="map7.png" background-size="contain" background-repeat="no-repeat" background-position="center"}
 
-# There is no centralized repository providing readily accessible, analysis-ready dengue data.
+# There is no centralized repository for accessing tidy dengue data.
 
 # Action 1: Dengue Data Hub
 
@@ -494,20 +494,8 @@ country_weekly_tsibble <- colombo |>
 
 
 
-
-## Action 3:  Impact of training dataset and model choice on dengue forecasting
-
-i. How do different training dataset choices and different model choices influence forecast error?
-
-ii. Do training dataset and model choices exhibit spatial patterns across districts?
-
-iii. Are the strengths of seasonality and the strengths of trend, computed over different time periods, helpful in identifying the best-performing combination of training dataset and model?
-
-iv. Do the strength of seasonality and the strength of trend, computed over different time periods, help explain the choice of the best model and training dataset?
-
-
-
 #
+
 
 ### Training set
 
@@ -523,17 +511,17 @@ The first 8 weeks of 2025
 
 #
 
-## Training dataset choices
+## Training Dataset Choices
 
 - All data
 
-- Excluding the interrupted period and pre-COVID-19 period from model training and use only post COVID-19 period data
+- Use only post COVID-19 period data
 
-- Forecasting the interrupted period first and then using it for modeling:
+- Forecasting the interrupted period first and then using it for modeling
 
-- Down-weighting interrupted period
+- Down-weight the interrupted period
 
-## Model choices
+## Model Choices
 
 i. **Automated ARIMA algorithms**
 
@@ -548,6 +536,7 @@ When the seasonal cycle is long (e.g., 52 weeks), DHR models usually perform bet
 #
 
 ```{r data, echo=FALSE, message=FALSE, warning=FALSE}
+#| fig.height: 10
 #ARIMA
 ARIMA_Benchmark_accuracy <- readRDS(here("results", "ARIMA_Benchmark_accuracy.rds"))
 ARIMA_downweight_accuracy <- readRDS(here("results", "ARIMA_downweight_accuracy.rds"))
@@ -712,14 +701,14 @@ p1 + (p2/p3)
 **strength of the trend** 
 
 \begin{equation}
-F_T = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(T_t + R_t)} \right),
+F_T = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(T_t + R_t)} \right)
 \end{equation}
 
 
 
 **strength of seasonality** 
 \begin{equation}
-F_S = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(S_t + R_t)} \right),
+F_S = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(S_t + R_t)} \right)
 \end{equation}
 
 $\operatorname{Var}(R_t)$ - variance of the remainder component
@@ -814,7 +803,7 @@ p1 <- ggplot(df_combined, aes(x = `trend_strength_Pre-COVID`,
                           y = trend_strength_COVID, colour = Model.x, shape = Data.x)) +
   geom_point(
   data = df_combined[df_combined$district == "Colombo", ],
-  size=3.5
+  size=4
 ) + geom_point() +
    geom_text(
   data = df_combined[df_combined$district == "Colombo", ],
@@ -840,7 +829,7 @@ p2 <- ggplot(df_combined, aes(x = `trend_strength_Pre-COVID`,
                           y = `trend_strength_Post-COVID`, colour = Model.x, shape = Data.x)) +
    geom_point(
   data = df_combined[df_combined$district == "Colombo", ],
-  size=3.5
+  size=4
 ) + geom_point() +
    geom_text(
   data = df_combined[df_combined$district == "Colombo", ],
@@ -868,7 +857,7 @@ p3 <- ggplot(df_combined, aes(x = trend_strength_COVID,
                           y = `trend_strength_Post-COVID`, colour = Model.x, shape = Data.x)) +
    geom_point(
   data = df_combined[df_combined$district == "Colombo", ],
-  size=3.5
+  size=4
 ) + geom_point() +
    geom_text(
   data = df_combined[df_combined$district == "Colombo", ],
@@ -897,7 +886,7 @@ p4 <- ggplot(df_combined, aes(x = `seasonal_strength_year_Pre-COVID`,
                           y = seasonal_strength_year_COVID, colour = Model.x, shape = Data.x)) +
    geom_point(
   data = df_combined[df_combined$district == "Colombo", ],
-  size=3.5
+  size=4
 ) + geom_point() +
    geom_text(
   data = df_combined[df_combined$district == "Colombo", ],
@@ -925,7 +914,7 @@ p5 <- ggplot(df_combined, aes(x = `seasonal_strength_year_Pre-COVID`,
                           y = `seasonal_strength_year_Post-COVID`, colour = Model.x, shape = Data.x)) +
    geom_point(
   data = df_combined[df_combined$district == "Colombo", ],
-  size=3.5
+  size=4
 ) +
   geom_point() +
    geom_text(
@@ -954,7 +943,7 @@ p6 <- ggplot(df_combined, aes(x = seasonal_strength_year_COVID,
                           y = `seasonal_strength_year_Post-COVID`, colour = Model.x, shape = Data.x)) +
    geom_point(
   data = df_combined[df_combined$district == "Colombo", ],
-  size=3.5
+  size=4
 ) + geom_point() +
    geom_text(
   data = df_combined[df_combined$district == "Colombo", ],
