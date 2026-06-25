@@ -45,17 +45,17 @@ library(SriLanka)
 
 ## Sri Lanka Climate 
 
-🌴Climate type: 
+🌴Climate type
 
 - Tropical climate: Warm and humid throughout the year
 
- ☀️Average temperature:
+ ☀️Average temperature
  
   - Typically 26°C – 30°C in lowlands
     
   - Cooler in central highlands (e.g., Nuwara Eliya ~16°C–20°C)
 
- 🌧💧️ Rainfall:
+ 🌧💧️ Rainfall
 
 
   - Two main monsoon seasons: 
@@ -345,7 +345,7 @@ ggplot() +
 ::: {.column width="50%"}
 
 - Even though Colombo, Gampaha, and Kalutara are geographically close in the Western Province,
-their dengue time-series patterns can look quite different.
+their dengue time series patterns can look quite different.
 
 - Spatial proximity does not imply temporal similarity in dengue dynamics.
 :::
@@ -359,6 +359,8 @@ their dengue time-series patterns can look quite different.
 # Action 1: Dengue Data Hub
 
 # {background-image="map8.png" background-size="contain" background-repeat="no-repeat" background-position="center"}
+
+# {background-image="we.png" background-size="contain" background-repeat="no-repeat" background-position="center"}
 
 ## `denguedatahub` R package
 
@@ -393,7 +395,7 @@ srilanka_weekly_data
 knitr::include_graphics("cover.png")
 ```
 
-We have data for 225 countries around the world!
+We have data for 225 countries around the world.
 
 # {background-image="web1.png" background-size="contain" background-repeat="no-repeat" background-position="center"}
 
@@ -499,9 +501,9 @@ country_weekly_tsibble <- colombo |>
 
 ### Training set
 
-i. Pre COVID-19 period: 2007 - 2020
+i. Pre COVID-19 period: 2007 - 2019
 
-ii. During COVID-19 period: from 2020 to 2022 
+ii. During COVID-19 period: 2020 - 2022 
 
 iii. Post COVID-19 period: 2023 - 2024 
 
@@ -531,7 +533,6 @@ iii. **STL - ETS approach:**  Using STL decomposition, the seasonal component is
 
 
 iii. **Dynamic Harmonic Regression (DHR):** Complex seasonality is modeled using Fourier terms combined with ARIMA errors.
-When the seasonal cycle is long (e.g., 52 weeks), DHR models usually perform better than ARIMA or ETS models. 
 
 #
 
@@ -694,6 +695,14 @@ p3 <- ggplot(combined_sf ) +
 p1 + (p2/p3)
 ```
 
+
+
+# {background-image="two.png" background-size="contain"} 
+
+
+
+
+
 #
 
 ## Time Series Features
@@ -713,9 +722,9 @@ F_S = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(S_t 
 
 $\operatorname{Var}(R_t)$ - variance of the remainder component
 
-$\operatorname{Var}(T_t + R_t)$ - variance of the detrended series
+$\operatorname{Var}(T_t + R_t)$ - variance after removing the seasonal component
 
-$\operatorname{Var}(S_t + R_t)$ - variance after removing the seasonal component.
+$\operatorname{Var}(S_t + R_t)$ - variance of the detrended series
 
 
 

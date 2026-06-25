@@ -4,7 +4,7 @@
     "href": "index.html#sri-lanka-climate",
     "title": "Forecasting Dengue: Journey Through Challenges, Actions, and Lessons Learned",
     "section": "Sri Lanka Climate",
-    "text": "Sri Lanka Climate\n🌴Climate type:\n\nTropical climate: Warm and humid throughout the year\n\n☀️Average temperature:\n\nTypically 26°C – 30°C in lowlands\nCooler in central highlands (e.g., Nuwara Eliya ~16°C–20°C)\n\n🌧💧️ Rainfall:\n\nTwo main monsoon seasons:\n\nSouthwest monsoon (May–September)\nNortheast monsoon (December–February)"
+    "text": "Sri Lanka Climate\n🌴Climate type\n\nTropical climate: Warm and humid throughout the year\n\n☀️Average temperature\n\nTypically 26°C – 30°C in lowlands\nCooler in central highlands (e.g., Nuwara Eliya ~16°C–20°C)\n\n🌧💧️ Rainfall\n\nTwo main monsoon seasons:\n\nSouthwest monsoon (May–September)\nNortheast monsoon (December–February)"
   },
   {
     "objectID": "index.html#weekly-dengue-cases-in-sri-lanka-2007---2016",
@@ -88,14 +88,14 @@
     "href": "index.html#model-choices",
     "title": "Forecasting Dengue: Journey Through Challenges, Actions, and Lessons Learned",
     "section": "Model Choices",
-    "text": "Model Choices\n\nAutomated ARIMA algorithms\nTrigonometric seasonality, Box-Cox transformation, ARMA errors, Trend and Seasonal components (TBATS) model\nSTL - ETS approach: Using STL decomposition, the seasonal component is extracted from the original series. Then, the ETS model is fitted to the seasonally adjusted series. When fitting the ETS model, the seasonal component is set to “None”. In this way, STL captures seasonality, ETS models the remaining structure, and the final forecast is their combination.\nDynamic Harmonic Regression (DHR): Complex seasonality is modeled using Fourier terms combined with ARIMA errors. When the seasonal cycle is long (e.g., 52 weeks), DHR models usually perform better than ARIMA or ETS models."
+    "text": "Model Choices\n\nAutomated ARIMA algorithms\nTrigonometric seasonality, Box-Cox transformation, ARMA errors, Trend and Seasonal components (TBATS) model\nSTL - ETS approach: Using STL decomposition, the seasonal component is extracted from the original series. Then, the ETS model is fitted to the seasonally adjusted series. When fitting the ETS model, the seasonal component is set to “None”. In this way, STL captures seasonality, ETS models the remaining structure, and the final forecast is their combination.\nDynamic Harmonic Regression (DHR): Complex seasonality is modeled using Fourier terms combined with ARIMA errors."
   },
   {
     "objectID": "index.html#time-series-features",
     "href": "index.html#time-series-features",
     "title": "Forecasting Dengue: Journey Through Challenges, Actions, and Lessons Learned",
     "section": "Time Series Features",
-    "text": "Time Series Features\nstrength of the trend\n\\[\\begin{equation}\nF_T = \\max \\left(0,\\; 1 - \\frac{\\operatorname{Var}(R_t)}{\\operatorname{Var}(T_t + R_t)} \\right)\n\\end{equation}\\]\nstrength of seasonality \\[\\begin{equation}\nF_S = \\max \\left(0,\\; 1 - \\frac{\\operatorname{Var}(R_t)}{\\operatorname{Var}(S_t + R_t)} \\right)\n\\end{equation}\\]\n\\(\\operatorname{Var}(R_t)\\) - variance of the remainder component\n\\(\\operatorname{Var}(T_t + R_t)\\) - variance of the detrended series\n\\(\\operatorname{Var}(S_t + R_t)\\) - variance after removing the seasonal component."
+    "text": "Time Series Features\nstrength of the trend\n\\[\\begin{equation}\nF_T = \\max \\left(0,\\; 1 - \\frac{\\operatorname{Var}(R_t)}{\\operatorname{Var}(T_t + R_t)} \\right)\n\\end{equation}\\]\nstrength of seasonality \\[\\begin{equation}\nF_S = \\max \\left(0,\\; 1 - \\frac{\\operatorname{Var}(R_t)}{\\operatorname{Var}(S_t + R_t)} \\right)\n\\end{equation}\\]\n\\(\\operatorname{Var}(R_t)\\) - variance of the remainder component\n\\(\\operatorname{Var}(T_t + R_t)\\) - variance after removing the seasonal component\n\\(\\operatorname{Var}(S_t + R_t)\\) - variance of the detrended series"
   },
   {
     "objectID": "index.html#lessons-learned",
