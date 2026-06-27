@@ -91,18 +91,18 @@
     "text": "Model Choices\n\nAutomated ARIMA algorithms\nTrigonometric seasonality, Box-Cox transformation, ARMA errors, Trend and Seasonal components (TBATS) model\nSTL - ETS approach: Using STL decomposition, the seasonal component is extracted from the original series. Then, the ETS model is fitted to the seasonally adjusted series. When fitting the ETS model, the seasonal component is set to “None”. In this way, STL captures seasonality, ETS models the remaining structure, and the final forecast is their combination.\nDynamic Harmonic Regression (DHR): Complex seasonality is modeled using Fourier terms combined with ARIMA errors."
   },
   {
-    "objectID": "index.html#time-series-features",
-    "href": "index.html#time-series-features",
+    "objectID": "index.html#time-series-features-1",
+    "href": "index.html#time-series-features-1",
     "title": "Forecasting Dengue: Journey Through Challenges, Actions, and Lessons Learned",
     "section": "Time Series Features",
-    "text": "Time Series Features\nstrength of the trend\n\\[\\begin{equation}\nF_T = \\max \\left(0,\\; 1 - \\frac{\\operatorname{Var}(R_t)}{\\operatorname{Var}(T_t + R_t)} \\right)\n\\end{equation}\\]\nstrength of seasonality \\[\\begin{equation}\nF_S = \\max \\left(0,\\; 1 - \\frac{\\operatorname{Var}(R_t)}{\\operatorname{Var}(S_t + R_t)} \\right)\n\\end{equation}\\]\n\\(\\operatorname{Var}(R_t)\\) - variance of the remainder component\n\\(\\operatorname{Var}(T_t + R_t)\\) - variance after removing the seasonal component\n\\(\\operatorname{Var}(S_t + R_t)\\) - variance of the detrended series"
+    "text": "Time Series Features\nstrength of the trend\n\\[ F_T = \\max \\left(0,\\; 1 - \\frac{\\operatorname{Var}(R_t)}{\\operatorname{Var}(T_t + R_t)} \\right)\\]\nstrength of seasonality\n\\[F_S = \\max \\left(0,\\; 1 - \\frac{\\operatorname{Var}(R_t)}{\\operatorname{Var}(S_t + R_t)} \\right)\\]\n\\(\\operatorname{Var}(R_t)\\) - variance of the remainder component\n\\(\\operatorname{Var}(T_t + R_t)\\) - variance after removing the seasonal component\n\\(\\operatorname{Var}(S_t + R_t)\\) - variance of the detrended series"
   },
   {
     "objectID": "index.html#lessons-learned",
     "href": "index.html#lessons-learned",
     "title": "Forecasting Dengue: Journey Through Challenges, Actions, and Lessons Learned",
     "section": "Lessons Learned",
-    "text": "Lessons Learned\n\nThere is no single best combination of training dataset and forecasting model that consistently yields the best performance for a given time series.\nThis suggests that early warning systems should be adaptive rather than static, and should incorporate mechanisms to detect and respond to structural changes in disease transmission dynamics."
+    "text": "Lessons Learned\n\nThere is no single combination of training dataset and forecasting model that consistently delivers the best performance for a given time series across multiple time steps.\nThis suggests that early warning systems should be adaptive rather than static, and should incorporate mechanisms to detect and respond to structural changes in disease transmission dynamics."
   },
   {
     "objectID": "index.html#action-4-two-step-forecasting-model",

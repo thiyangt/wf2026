@@ -600,6 +600,8 @@ df_best_flag <- data_clean %>%
 ```
 
 ```{r}
+#| fig.width: 15
+#| fig.height: 6
 library(dplyr)
 library(tidyr)
 library(ggplot2)
@@ -692,9 +694,29 @@ p3 <- ggplot(combined_sf ) +
     "Updated"   = "#fdc086", 
     "Excluded" = "#1f78b4"
   )) + labs(title = "(c)", fill = "Training dataset")
-p1 + (p2/p3)
+p1|p2|p3
 ```
 
+Figure 1: (a) Best forecasting model by district under different training sets, (b) Best forecasting model for each district, (c) Best training set for each district.
+
+#
+
+```{r}
+#| fig.height: 5
+p1
+```
+
+Figure 1: (a) Best forecasting model by district under different training sets
+
+#
+
+```{r}
+#| fig.width: 15
+#| fig.height: 6
+p1|p2|p3
+```
+
+Figure 1: (a) Best forecasting model by district under different training sets, (b) Best forecasting model for each district, (c) Best training set for each district.
 
 
 # {background-image="two.png" background-size="contain"} 
@@ -703,22 +725,36 @@ p1 + (p2/p3)
 
 
 
+
+
+# Time Series Features
+
+- **Cognostics**: **Co**mputer-aided dia**gnostics** (John W. Tukey, 1985)
+
+- Characteristics of time series
+
+- Summary measures of time series
+
+
+**Basic Principle**
+
+- Transform a given time series $y=\{y_1, y_2, \cdots, y_n\}$ into a feature vector $F = (f_1(y), f_2(y), \cdots, f_p(y))'$. 
+
+
 #
 
 ## Time Series Features
 
 **strength of the trend** 
 
-\begin{equation}
-F_T = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(T_t + R_t)} \right)
-\end{equation}
+$$ F_T = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(T_t + R_t)} \right)$$
 
 
 
 **strength of seasonality** 
-\begin{equation}
-F_S = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(S_t + R_t)} \right)
-\end{equation}
+
+
+$$F_S = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(S_t + R_t)} \right)$$
 
 $\operatorname{Var}(R_t)$ - variance of the remainder component
 
@@ -727,6 +763,13 @@ $\operatorname{Var}(T_t + R_t)$ - variance after removing the seasonal component
 $\operatorname{Var}(S_t + R_t)$ - variance of the detrended series
 
 
+# 
+
+![](f1.png)
+
+#
+
+![](f2.png)
 
 #
 
@@ -1045,7 +1088,7 @@ p1|p4
 
 ## Lessons Learned
 
- - There is no single best combination of training dataset and forecasting model that consistently yields the best performance for a given time series.
+ - There is no single combination of training dataset and forecasting model that consistently delivers the best performance for a given time series across multiple time steps.
 
  - This suggests that early warning systems should be adaptive rather than static, and **should incorporate mechanisms to detect and respond to structural changes in disease transmission dynamics**.
  
@@ -1099,10 +1142,11 @@ $$
 
 #
 
+<table style="font-size: 50%;">
 <table>
   <colgroup>
-    <col style="width: 18%;">
-    <col style="width: 82%;">
+    <col style="width: 10%;">
+    <col style="width: 90%;">
   </colgroup>
   <thead>
     <tr>
@@ -1113,7 +1157,7 @@ $$
   <tbody>
     <tr>
       <td>Stable</td>
-      <td>No significant change in weather, vector indices, or reported cases during the previous 2–3 weeks. Transmission expected to remain at current levels.</td>
+      <td>No significant change in weather, vector indices, or reported cases during the previous 2–3 weeks. </td>
     </tr>
     <tr>
       <td>Moderate Increase</td>

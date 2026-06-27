@@ -522,50 +522,83 @@ Thiyanga S. Talagala
 <section id="section-23" class="title-slide slide level1 center">
 <h1></h1>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch"></section>
-
-<section id="section-24" class="title-slide slide level1 center" data-background-image="two.png" data-background-size="contain">
-<h1></h1>
-
+<img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" width="1440" class="r-stretch"><p>Figure 1: (a) Best forecasting model by district under different training sets, (b) Best forecasting model for each district, (c) Best training set for each district.</p>
 </section>
 
-<section>
+<section id="section-24" class="title-slide slide level1 center">
+<h1></h1>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-16-1.png" width="960" class="r-stretch"><p>Figure 1: (a) Best forecasting model by district under different training sets</p>
+</section>
+
 <section id="section-25" class="title-slide slide level1 center">
 <h1></h1>
 
+<img data-src="index_files/figure-revealjs/unnamed-chunk-17-1.png" width="1440" class="r-stretch"><p>Figure 1: (a) Best forecasting model by district under different training sets, (b) Best forecasting model for each district, (c) Best training set for each district.</p>
 </section>
-<section id="time-series-features" class="slide level2">
-<h2>Time Series Features</h2>
-<p><strong>strength of the trend</strong></p>
-<p><span class="math display">\[\begin{equation}
-F_T = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(T_t + R_t)} \right)
-\end{equation}\]</span></p>
-<p><strong>strength of seasonality</strong> <span class="math display">\[\begin{equation}
-F_S = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(S_t + R_t)} \right)
-\end{equation}\]</span></p>
-<p><span class="math inline">\(\operatorname{Var}(R_t)\)</span> - variance of the remainder component</p>
-<p><span class="math inline">\(\operatorname{Var}(T_t + R_t)\)</span> - variance after removing the seasonal component</p>
-<p><span class="math inline">\(\operatorname{Var}(S_t + R_t)\)</span> - variance of the detrended series</p>
-</section></section>
-<section id="section-26" class="title-slide slide level1 center">
+
+<section id="section-26" class="title-slide slide level1 center" data-background-image="two.png" data-background-size="contain">
 <h1></h1>
 
-<img data-src="index_files/figure-revealjs/featureplot-1.png" width="672" class="r-stretch quarto-figure-center"><p class="caption"> Feature-based exploration: The first column illustrates the strength of the trend across different periods, the second column depicts the strength of seasonality across periods, and the third column shows pairwise plots of the first three principal components.</p></section>
+</section>
+
+<section id="time-series-features" class="title-slide slide level1 center">
+<h1>Time Series Features</h1>
+<ul>
+<li><p><strong>Cognostics</strong>: <strong>Co</strong>mputer-aided dia<strong>gnostics</strong> (John W. Tukey, 1985)</p></li>
+<li><p>Characteristics of time series</p></li>
+<li><p>Summary measures of time series</p></li>
+</ul>
+<p><strong>Basic Principle</strong></p>
+<ul>
+<li>Transform a given time series <span class="math inline">\(y=\{y_1, y_2, \cdots, y_n\}\)</span> into a feature vector <span class="math inline">\(F = (f_1(y), f_2(y), \cdots, f_p(y))'\)</span>.</li>
+</ul>
+</section>
 
 <section>
 <section id="section-27" class="title-slide slide level1 center">
 <h1></h1>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-17-1.png" width="960" class="r-stretch"></section>
+</section>
+<section id="time-series-features-1" class="slide level2">
+<h2>Time Series Features</h2>
+<p><strong>strength of the trend</strong></p>
+<p><span class="math display">\[ F_T = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(T_t + R_t)} \right)\]</span></p>
+<p><strong>strength of seasonality</strong></p>
+<p><span class="math display">\[F_S = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(S_t + R_t)} \right)\]</span></p>
+<p><span class="math inline">\(\operatorname{Var}(R_t)\)</span> - variance of the remainder component</p>
+<p><span class="math inline">\(\operatorname{Var}(T_t + R_t)\)</span> - variance after removing the seasonal component</p>
+<p><span class="math inline">\(\operatorname{Var}(S_t + R_t)\)</span> - variance of the detrended series</p>
+</section></section>
+<section id="section-28" class="title-slide slide level1 center">
+<h1></h1>
+
+<img data-src="f1.png" class="r-stretch"></section>
+
+<section id="section-29" class="title-slide slide level1 center">
+<h1></h1>
+
+<img data-src="f2.png" class="r-stretch"></section>
+
+<section id="section-30" class="title-slide slide level1 center">
+<h1></h1>
+
+<img data-src="index_files/figure-revealjs/featureplot-1.png" width="672" class="r-stretch quarto-figure-center"><p class="caption"> Feature-based exploration: The first column illustrates the strength of the trend across different periods, the second column depicts the strength of seasonality across periods, and the third column shows pairwise plots of the first three principal components.</p></section>
+
+<section>
+<section id="section-31" class="title-slide slide level1 center">
+<h1></h1>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-19-1.png" width="960" class="r-stretch"></section>
 <section id="lessons-learned" class="slide level2">
 <h2>Lessons Learned</h2>
 <ul>
-<li><p>There is no single best combination of training dataset and forecasting model that consistently yields the best performance for a given time series.</p></li>
+<li><p>There is no single combination of training dataset and forecasting model that consistently delivers the best performance for a given time series across multiple time steps.</p></li>
 <li><p>This suggests that early warning systems should be adaptive rather than static, and <strong>should incorporate mechanisms to detect and respond to structural changes in disease transmission dynamics</strong>.</p></li>
 </ul>
 </section></section>
 <section>
-<section id="section-28" class="title-slide slide level1 center">
+<section id="section-32" class="title-slide slide level1 center">
 <h1></h1>
 
 </section>
@@ -609,12 +642,13 @@ g\left(
 \right)
 \]</span></p>
 </section></section>
-<section id="section-29" class="title-slide slide level1 center">
+<section id="section-33" class="title-slide slide level1 center">
 <h1></h1>
-<table>
+<table style="font-size: 50%;">
+</table><table>
 <colgroup>
-<col style="width: 18%;">
-<col style="width: 82%;">
+<col style="width: 10%;">
+<col style="width: 90%;">
 </colgroup>
 <thead>
 <tr>
@@ -632,7 +666,7 @@ Epidemiological Interpretation
 Stable
 </td>
 <td>
-No significant change in weather, vector indices, or reported cases during the previous 2–3 weeks. Transmission expected to remain at current levels.
+No significant change in weather, vector indices, or reported cases during the previous 2–3 weeks.
 </td>
 </tr>
 <tr>
@@ -680,7 +714,7 @@ Less favourable weather, reduced vector indices, and decreasing case counts over
 </section>
 
 <section>
-<section id="section-30" class="title-slide slide level1 center">
+<section id="section-34" class="title-slide slide level1 center">
 <h1></h1>
 
 </section>
