@@ -287,6 +287,7 @@ srilanka_weekly_data %>%
 
 # Dengue is endemic in all districts across the country throughout the year.
 
+# {background-image="sp.png" background-size="contain"} 
 
 
 #
