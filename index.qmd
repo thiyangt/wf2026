@@ -1169,3 +1169,5 @@ The Dengue Data Hub project was supported by funding from the R Consortium Infra
 #| fig.height: 4
 knitr::include_graphics("cover.png")
 ```
+
+# {background-image="interaction.png" background-size="contain"} 
