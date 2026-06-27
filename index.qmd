@@ -802,7 +802,7 @@ df_combined_fea_best <- stl_features %>%
   left_join(df_min_rmse, by = c("district" = "District"))
 ```
 
-```{r featureplot, fig.height=9, fig.width=7, fig.cap="\\label{featureplot} Feature-based exploration: The first column illustrates the strength of the trend across different periods, the second column depicts the strength of seasonality across periods, and the third column shows pairwise plots of the first three principal components."}
+```{r featureplot, fig.height=9, fig.width=7, fig.cap="\\label{featureplot} Figure 2: Feature-based exploration: The first column illustrates the strength of the trend across different periods, the second column depicts the strength of seasonality across periods, and the third column shows pairwise plots of the first three principal components."}
 library(dplyr)
 library(tidyr)
 
@@ -1080,6 +1080,7 @@ p2p3 <- ggplot(scores, aes(x=PC2, y=PC3, color = Model, shape=Data)) + geom_poin
 ```
 
 
+
 #
 
 ```{r}
@@ -1137,50 +1138,9 @@ g\left(
 \right)
 $$
 
+# {background-image="text.png" background-size="contain" background-repeat="no-repeat" background-position="center"}
 
 
-
-#
-
-<table style="font-size: 50%;">
-<table>
-  <colgroup>
-    <col style="width: 10%;">
-    <col style="width: 90%;">
-  </colgroup>
-  <thead>
-    <tr>
-      <th>Category</th>
-      <th>Epidemiological Interpretation</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Stable</td>
-      <td>No significant change in weather, vector indices, or reported cases during the previous 2–3 weeks. </td>
-    </tr>
-    <tr>
-      <td>Moderate Increase</td>
-      <td>Slight increase in rainfall, humidity, or temperature favourable for mosquito breeding. Early signs of increasing cases in a few locations.</td>
-    </tr>
-    <tr>
-      <td>Sharp Increase</td>
-      <td>Sustained favourable weather conditions, increasing vector density, and multiple MOH areas reporting growth in cases.</td>
-    </tr>
-    <tr>
-      <td>Cluster Alert</td>
-      <td>One or more localized dengue clusters identified (e.g., schools, workplaces, neighborhoods), even if district-wide counts remain moderate.</td>
-    </tr>
-    <tr>
-      <td>Outbreak Alert</td>
-      <td>Widespread increase across several areas, healthcare burden increasing, or evidence of a new serotype/variant, large-scale clustering, or unusual transmission dynamics.</td>
-    </tr>
-    <tr>
-      <td>Declining Trend</td>
-      <td>Less favourable weather, reduced vector indices, and decreasing case counts over multiple weeks.</td>
-    </tr>
-  </tbody>
-</table>
 
 #
 
