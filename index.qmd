@@ -248,7 +248,7 @@ srilanka_weekly_data %>%
 
 # 
 
-### Weekly Dengue Cases by District (2020 onwards)
+### Weekly Dengue Cases by District (2020 onward)
 
 ```{r}
 #| fig.width: 15
@@ -1157,7 +1157,7 @@ $$
 
 ## Acknowledgement
 
-The Dengue Data Hub project was supported by funding from the R Consortium Infrastructure Steering Committee (ISC) Grant Program.
+The Dengue Data Hub project was supported by funding from the R Consortium Infrastructure Steering Committee (ISC) Grant.
 
 **Dengue Data Hub:** [https://thiyangt.github.io/denguedatahubweb/](https://thiyangt.github.io/denguedatahubweb/)
 
